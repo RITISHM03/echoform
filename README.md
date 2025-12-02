@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EchoForms
+
+An AI-powered form generator built with Next.js 14, Tailwind CSS, and OpenAI.
+
+## Features
+
+- **AI Form Generation**: Describe your form in plain English, and AI builds it.
+- **Form Preview**: Real-time preview of the generated form.
+- **Modern UI**: Built with Tailwind CSS and Shadcn UI principles.
+- **Production Ready**: Optimized for Vercel deployment.
+
+## Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Database**: PostgreSQL (Prisma ORM)
+- **Auth**: NextAuth.js (Configured but not fully implemented in this phase)
+- **AI**: OpenAI API (with Mock Fallback)
 
 ## Getting Started
 
-First, run the development server:
+1. **Clone the repository**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. **Environment Setup**
+   Copy `.env.example` to `.env` and fill in the values.
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Required for AI:
+   - `OPENAI_API_KEY` (Leave empty to use Mock Mode)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+   Required for Database:
+   - `DATABASE_URL` (PostgreSQL connection string)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
 
-## Learn More
+## Deployment on Vercel
 
-To learn more about Next.js, take a look at the following resources:
+1. Push your code to GitHub.
+2. Import the project in Vercel.
+3. Add the Environment Variables in Vercel Project Settings.
+4. Deploy!
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Database Setup (Supabase/Neon)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Create a project on Supabase or Neon.
+2. Get the connection string (Transaction Mode for Supabase).
+3. Set `DATABASE_URL` in `.env`.
+4. Run migrations:
+   ```bash
+   npx prisma migrate dev
+   ```
 
-## Deploy on Vercel
+## AI Mock Mode
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+If `OPENAI_API_KEY` is not set, the app uses a deterministic mock system.
+- Try prompts containing "feedback" for a feedback form.
+- Try prompts containing "register" for a registration form.
+- Any other prompt returns a default form.
