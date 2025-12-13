@@ -48,5 +48,10 @@ In the "Configure Project" screen, add the following Environment Variables.
 3. If it fails, check the "Building" logs.
 
 ## Troubleshooting
+- **Build Stuck / Infinite Load**: You likely set the "Build Command" to `npm run dev`.
+    - **FIX**: Go to **Settings** -> **General** -> **Build & Development Settings**.
+    - Change **Build Command** to `npm run build` (or leave it empty/default).
+    - **NEVER** use `npm run dev` in Vercel.
+
 - **Build Error (Prisma)**: If it tries to run `prisma generate`, make sure you removed `prisma` from `package.json` (I have done this for you).
 - **Connection Error**: Double check `MONGODB_URI` includes the correct password (no special characters that break URL parsing).
