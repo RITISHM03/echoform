@@ -15,7 +15,7 @@ export interface IForm extends Document {
 }
 
 const FormSchema: Schema = new Schema({
-    userId: { type: String, required: false }, // Store generic string ID for now
+    userId: { type: String, required: true, index: true }, // Link to User
     title: { type: String, required: true },
     description: { type: String },
     content: { type: Schema.Types.Mixed, required: true }, // Store array of fields

@@ -4,17 +4,28 @@ import Form from "@/models/Form";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, Eye, MessageSquare, ExternalLink } from "lucide-react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
-export const dynamic = 'force-dynamic'; // Ensure we always get fresh data
+export const dynamic = 'force-dynamic';
 
 export default async function DashboardPage() {
+    const session = await getServerSession(authOptions);
+
+    if (!session || !session.user) {
+        redirect("/login");
+    }
+
     await connectToDatabase();
 
-    // Fetch all forms sorted by newest first
-    const forms = await Form.find({}).sort({ createdAt: -1 }).lean();
+    // Fetch forms for THIS user
+    const forms = await Form.find({ userId: (session.user as any).id })
+        .sort({ createdAt: -1 })
+        .lean();
 
     return (
-        <div className="min-h-screen bg-black text-white p-8">
+        <div className="min-h-screen bg-black text-white p-8 pt-24">
             <div className="max-w-6xl mx-auto space-y-8">
                 <div className="flex items-center justify-between">
                     <div>
@@ -69,8 +80,9 @@ export default async function DashboardPage() {
                                                 View Responses
                                             </Button>
                                         </Link>
+                                        {/* Use FULL URL for public link */}
                                         <Link href={`/f/${form.slug}`} target="_blank" className="flex-none">
-                                            <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white hover:bg-white/10">
+                                            <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white hover:bg-white/10" title="Open Public Form">
                                                 <ExternalLink className="h-4 w-4" />
                                             </Button>
                                         </Link>
