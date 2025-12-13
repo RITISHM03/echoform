@@ -70,8 +70,31 @@ export default function CreatePage() {
                 </form>
 
                 {schema && (
-                    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-6">
                         <FormPreview schema={schema} />
+                        <div className="flex justify-center gap-4">
+                            <Button
+                                onClick={async () => {
+                                    if (!schema) return;
+                                    try {
+                                        const res = await fetch("/api/forms", {
+                                            method: "POST",
+                                            headers: { "Content-Type": "application/json" },
+                                            body: JSON.stringify(schema),
+                                        });
+                                        const data = await res.json();
+                                        if (data.success) {
+                                            alert(`Form published! Share URL: ${window.location.origin}/f/${data.slug}`);
+                                        }
+                                    } catch (err) {
+                                        alert("Failed to publish form");
+                                    }
+                                }}
+                                className="bg-green-600 hover:bg-green-700"
+                            >
+                                Publish Form
+                            </Button>
+                        </div>
                     </div>
                 )}
             </div>

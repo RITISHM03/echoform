@@ -88,7 +88,9 @@ export function FormPreview({ schema }: FormPreviewProps) {
                 ))}
 
                 <div className="pt-4 flex justify-end">
-                    <Button>Submit</Button>
+                    <Button onClick={() => alert("This is a preview. Publish the form to test submission!")}>
+                        Submit (Preview)
+                    </Button>
                 </div>
             </CardContent>
         </Card>

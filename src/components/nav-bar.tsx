@@ -49,6 +49,11 @@ export function NavBar() {
                     >
                         How it works
                     </Button>
+                    <Link href="/dashboard">
+                        <Button variant="ghost" className="text-white hover:text-white/80 hover:bg-white/10">
+                            Dashboard
+                        </Button>
+                    </Link>
                     <Link href="/create">
                         <Button className="bg-white text-black hover:bg-white/90">
                             Try it now
