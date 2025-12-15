@@ -15,15 +15,21 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
     session: {
-        strategy: "jwt", // Use JWT for session to avoid excessive database lookups, though adapter supports db sessions too
+        strategy: "jwt",
     },
     pages: {
         signIn: "/login",
     },
+    secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
+        async jwt({ token, user }) {
+            if (user) {
+                token.id = user.id;
+            }
+            return token;
+        },
         async session({ session, token }) {
             if (session.user && token.sub) {
-                // Attach user ID to session
                 // @ts-ignore
                 session.user.id = token.sub;
             }
