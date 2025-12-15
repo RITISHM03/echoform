@@ -3,15 +3,11 @@ import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "@/lib/mongodb";
 
-console.log("Auth Debug:", {
-    hasGoogleId: !!process.env.GOOGLE_CLIENT_ID,
-    hasGoogleSecret: !!process.env.GOOGLE_CLIENT_SECRET,
-    hasNextAuthSecret: !!process.env.NEXTAUTH_SECRET,
-    googleIdValue: process.env.GOOGLE_CLIENT_ID?.substring(0, 10) + "..."
-});
+
 
 export const authOptions: NextAuthOptions = {
-    adapter: MongoDBAdapter(clientPromise),
+    // Temporarily disabled for Vercel - MongoDB connection issues
+    // adapter: MongoDBAdapter(clientPromise),
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID || "",
@@ -34,7 +30,5 @@ export const authOptions: NextAuthOptions = {
             return session;
         },
     },
-    debug: true,
-    secret: process.env.NEXTAUTH_SECRET,
 };
 
