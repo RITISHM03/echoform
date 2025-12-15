@@ -1,6 +1,7 @@
 # Deployment Guide for Vercel
 
 ## Prerequisites
+> **Note**: The project includes a `.npmrc` file with `legacy-peer-deps=true` to handle dependency conflicts during deployment.
 - A [Vercel](https://vercel.com) account.
 - A [GitHub](https://github.com) account (recommended) or Vercel CLI.
 - Your **MongoDB Atlas** connection string.
