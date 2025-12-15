@@ -11,7 +11,7 @@ console.log("Auth Debug:", {
 });
 
 export const authOptions: NextAuthOptions = {
-    // adapter: MongoDBAdapter(clientPromise),
+    adapter: MongoDBAdapter(clientPromise),
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID || "",
